@@ -331,7 +331,8 @@ sub build_regex {
         $str = "(?i)$str";
     }
 
-    my $re = eval { qr/$str/ };
+    # We need /m for multi-line matches.
+    my $re = eval { qr/$str/m };
     if ( !$re ) {
         die "Invalid regex '$str':\n  $@";
     }

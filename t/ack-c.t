@@ -1,9 +1,9 @@
-#!perl -T
+#!perl
 
 use warnings;
 use strict;
 
-use Test::More tests => 12;
+use Test::More tests => 13;
 
 use lib 't';
 use Util;
@@ -19,6 +19,18 @@ DASH_L: {
     my @files = qw( t/text );
 
     ack_sets_match( [ @args, @files ], \@expected, 'Looking for religion with -l' );
+}
+
+DASH_L_WITH_CARET: {
+    my @expected = qw(
+        t/text/science-of-myth.txt
+    );
+
+    my @args  = ('-l', '^But you oughta');
+    my @files = qw( t/text );
+
+    ack_sets_match( [ @args, @files ], \@expected,
+        'Looking for a match at start of line with -l' );
 }
 
 DASH_CAPITAL_L: {
